@@ -2,6 +2,11 @@ package main
 
 func main() {}
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 /**
  * Definition for singly-linked list.
  * type ListNode struct {
@@ -9,22 +14,17 @@ func main() {}
  *     Next *ListNode
  * }
  */
- func hasCycle(head *ListNode) bool {
-    if head == nil {
-        return false 
-    }
-    fast:= head.Next
-    slow := head
-    
-    for slow != nil && fast != nil {
-        if fast == slow {
-            return true
-        }
-        fast = fast.Next
-        if fast != nil {
-            fast = fast.Next
-        }
-        slow = slow.Next
-    }
-    return false
+func hasCycle(head *ListNode) bool {
+	fast := head
+	slow := head
+
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+		if fast == slow {
+			return true
+		}
+
+	}
+	return false
 }
