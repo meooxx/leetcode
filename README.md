@@ -1,6 +1,6 @@
 # leetcode
 
-目标 300
+目标:按顺序刷完300
 
 ## 命名规则(file naming and structure)
 
