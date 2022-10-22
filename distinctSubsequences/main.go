@@ -34,16 +34,17 @@ func numDistinct(s string, t string) int {
 func numDistinct2(s string, t string) int {
 	dp := make([]int, len(t)+1)
 	dp[0] = 1
-
-	// tagbg
-	// tag
-	//       t a g g
-	//     1 1 1 1 1
-	//   t 0 1 2        0 tIndex
-	//   a 0 0 1        1
-	///  g 0 0          2
-	
-	
+	// https://leetcode.com/problems/distinct-subsequences/discuss/572192/Understand-DP-through-question-115-explanation-with-pictures
+	// rabbbit
+	// rabi
+	//       r a b b b i t
+	//     1 1 1 1 1 1 1 1
+ 	//   r 0 1 1 1 1 1       0 tIndex
+	//   a 0 0 1 1 2 1       1
+	///  b 0 0 0 1 2 4       2  
+	//   b 0 0 0 0 1 _       3 _ ? 因为 b == b, 如果这个b不使用,需要s去匹配rabb的数量 n(4,4) == 1
+ 	//   i           			如果使用b使用从s 去匹配rab即 n(3,4)最终结果即 n(3,4) + n(4,4)
+	//   t
 	for sIndex := 1; sIndex <= len(s); sIndex++ {
 		pre := 1
 		for tIndex := 1; tIndex <= len(t); tIndex++ {

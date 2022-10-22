@@ -43,14 +43,15 @@ func flatten2(root *TreeNode) {
 func flatten3(root *TreeNode) {
 	for root != nil {
 		cur := root.Left
-		for cur != nil && cur.Right != nil {
-			cur = cur.Right
-		}
-		cur.Right = root.Right
-		root.Left = nil
-		root.Right = cur
+        if cur != nil {
+            for cur != nil && cur.Right != nil {
+			    cur = cur.Right
+            }
+            cur.Right = root.Right
+            root.Right = root.Left
+            root.Left = nil
+        }
 		root = root.Right
-
 	}
 }
 
