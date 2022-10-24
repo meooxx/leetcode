@@ -18,12 +18,15 @@ func main() {
 }
 
 
-//    abc  de
-//    abc  d   补上e, 每次 i层次循环       
-// 或 ab   de  e   补上c 每次j层次循环     
-// s1[i-1] == s3[i-1+j] 判断1场景    
-// s2[j-1] == s3[i+j-1] 判断2场景
-// i,j循环是覆盖所有可能性
+//  dp[i][j] 表示 s1[:i]  和 s2[:j]  的插入结果
+// abc  de    
+// ||   
+// ab   de c   此时 s1[i] == s3[i+j] 要看 s1第i前一位的情况dp[i-1][j]
+// 如果 s2[j] == s3[i+j] 要看j前面一位的情况, 所以查看dp[i][j-1]
+// 又因为外层循环是i 所以可以一位数组 dp[0:j]
+// 新循环中(i)dp[j] 表示dp[i-1][j]
+// j loop中, dp[j-1] 表示dp[i][j-1]
+
 func isInterleave(s1 string, s2 string, s3 string) bool {
 	if len(s1)+len(s2) != len(s3) {
 		return false
