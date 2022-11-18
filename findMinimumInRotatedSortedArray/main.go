@@ -1,8 +1,7 @@
 package main
 
-// 4  5  1 2 3
+// 4  5  1  2  3, mid < 3, 4-5-1
 // 4  5  1
-// 5  1
 // 1
 func findMin(nums []int) int {
 	left, right := 0, len(nums)-1
