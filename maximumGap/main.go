@@ -19,17 +19,17 @@ func main() {
 *
 //https://leetcode.com/problems/maximum-gap/solutions/50643/bucket-sort-java-solution-with-explanation-o-n-time-and-space/
 // 1, 2, 3, 4, 7    ceil(7-1 / 5-1) = 2(size)
-//
-
+//                  every bucket 范围(min+idx*size, min+(idx+1)*size)
 		1              4              7
 	    2             (5)            (8)
 		3             (6)            (9)
-	   bucket1        bucket2      bucket3
-	   // 实际只要存每个bucket的最大/最小值
-	   // 因为最大gap 出现在 nextBucketMin - bucketMax
-	   // 为什么maxGap 不再同一个bucket出现？
-	   //   因为 max-min / n-1 获得是平均gap, 那所有的gap 一定是 <=gap 
-	   //  或者是 >= gap, 所以最大值一定是大于等于gap
+	   bucket0        bucket1      bucket2
+// 实际只要存每个bucket的最大/最小值
+// 因为最大gap 出现在 nextBucketMin - bucketMax
+// 为什么maxGap 不会在同一个bucket出现？
+//   因为 max-min / n-1 获得是平均gap, 那所有的gap 一定是 <=gap 
+//  或者是 >= gap, 所以最大值一定是大于等于gap
+// e.g. 123467  7-1/6-1  12 34 67 => 2
 */
 func maximumGap1(nums []int) int {
 
