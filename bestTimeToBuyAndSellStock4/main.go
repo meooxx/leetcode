@@ -32,7 +32,7 @@ func maxProfit(k int, prices []int) int {
 	dpProfit[0] = 0
 	//  3     5    0  3    1  4
 	// -3    -3    0  0    0  0   hold1
-	// 0      2    2  3    3  4   profit
+	//  0     2    2  3    3  4   profit
 	
 	// -3   -3     2  2    2  2  hold2
     // 0    2      2  5    5  6  profit = holde2+price[i]
