@@ -6,12 +6,12 @@ import (
 )
 
 func main() {
-	// fmt.Println(getSkyline([][]int{{2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}}))
-	fmt.Println(getSkyline([][]int{{0, 2, 3}, {2, 5, 3}}))
+	fmt.Println(getSkyline([][]int{{2, 9, 10}, {3, 7, 15}, {5, 12, 12}}))
+	// fmt.Println(getSkyline([][]int{{0, 2, 3}, {2, 5, 3}}))
 
 }
 
-func getSkyline(buildings [][]int) [][]int {
+func getSkyline1(buildings [][]int) [][]int {
 	points := [][]int{}
 	for i := range buildings {
 		point := buildings[i]
@@ -23,7 +23,7 @@ func getSkyline(buildings [][]int) [][]int {
 			return points[i][0] < points[j][0]
 		}
 		return points[i][1] < points[j][1]
-		
+
 	})
 	queue := PriorityQueue{head: &PriorityQueue{}}
 	result := [][]int{}
@@ -42,6 +42,76 @@ func getSkyline(buildings [][]int) [][]int {
 		}
 	}
 	return result
+}
+func getSkyline(buildings [][]int) [][]int {
+
+	// Conquer: If one buiiling is left,
+	// return its diagonal points
+	if len(buildings) == 1 {
+		bldng := buildings[0]
+		skyline := [][]int{
+			{bldng[0], bldng[2]},
+			{bldng[1], 0},
+		}
+		return skyline
+	}
+
+	// Divide:
+	mid := len(buildings) / 2
+	skyline1 := getSkyline(buildings[:mid])
+	skyline2 := getSkyline(buildings[mid:])
+
+	// Combine:
+	var h1, h2, prevHeight, x, idx1, idx2 int
+	var skyline [][]int
+
+	for idx1 < len(skyline1) && idx2 < len(skyline2) {
+
+		point1 := skyline1[idx1]
+		point2 := skyline2[idx2]
+
+		// set x to the min(point1x, point2x)
+		// and update previous heights
+		switch {
+		case point1[0] < point2[0]:
+			x, h1 = point1[0], point1[1]
+			idx1++
+		case point1[0] > point2[0]:
+			x, h2 = point2[0], point2[1]
+			idx2++
+		default:
+			x = point1[0]
+			h1, h2 = point1[1], point2[1]
+			idx1++
+			idx2++
+		}
+		max := func(a, b int) int {
+			if a > b {
+				return a
+			}
+			return b
+		}
+		// currHeight = max between height of
+		// the point with the lesser x value
+		// and height of the point from the
+		// other skyline
+		currHeight := max(h1, h2)
+		if currHeight != prevHeight {
+			skyline = append(skyline, []int{x, currHeight})
+		}
+
+		prevHeight = currHeight
+	}
+
+	
+	// append the rest e.g. 
+	// [3,15], [7,12]
+	// the rest is               [12, 0]
+	// simply append [12, 0] to skyline
+	skyline = append(skyline, skyline1[idx1:]...)
+	skyline = append(skyline, skyline2[idx2:]...)
+
+	return skyline
 }
 
 type PriorityQueue struct {
