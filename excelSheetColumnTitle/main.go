@@ -6,9 +6,11 @@ package main
 // 		n = (A+1)*26^2 + (B+1) * 26^1 + C+1
 // 		n -1 = (A+1)*26^2 + (B+1) * 26^1 + C
 // 1. C ==> C == (n-1) % 26
-// (n-1)/26 = (A+1)*26^1 + (B+1) * 26^0
+// 2. B? 
+//   => (n-1)/26 = (A+1)*26^1 + (B+1) * 26^0
 // m = (A+1)*26^1 + (B+1)
 // m - 1 = (A+1)*26^1 + B
+//   B == m-1 % 26
 func convertToTitle(columnNumber int) string {
 	anwser := []byte{}
 	for columnNumber != 0 {
