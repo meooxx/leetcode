@@ -21,6 +21,14 @@ func main() {
 	}))
 }
 
+/*
+* 
+   2    -3     3    inf
+	 -5   -10    1    inf
+   10   30    -5    0
+	 inf  inf    0   
+*/
+
 func calculateMinimumHP1(dungeon [][]int) int {
 	rowLen := len(dungeon)
 	colLen := len(dungeon[0])
