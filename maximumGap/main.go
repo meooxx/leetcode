@@ -17,19 +17,18 @@ func main() {
 
 /*
 *
-//https://leetcode.com/problems/maximum-gap/solutions/50643/bucket-sort-java-solution-with-explanation-o-n-time-and-space/
-// 1, 2, 3, 4, 7    ceil(7-1 / 5-1) = 2(size)
-//                  every bucket 范围(min+idx*size, min+(idx+1)*size)
-		1              4              7
-	    2             (5)            (8)
-		3             (6)            (9)
-	   bucket0        bucket1      bucket2
-// 实际只要存每个bucket的最大/最小值
-// 因为最大gap 出现在 nextBucketMin - bucketMax
-// 为什么maxGap 不会在同一个bucket出现？
-//   因为 max-min / n-1 获得是平均gap, 那所有的gap 一定是 <=gap 
-//  或者是 >= gap, 所以最大值一定是大于等于gap
-// e.g. 123467  7-1/6-1  12 34 67 => 2
+// 	https://leetcode.com/problems/maximum-gap/solutions/50643/bucket-sort-java-solution-with-explanation-o-n-time-and-space/
+// 	totalGap = max - min
+//  buckets = n - 1  (appointed)
+//  bucketsSize = (max - min) / min
+//  bucketIndex = (num - minNum) / bucketsSize
+//                       1-2 2-3  3-5  5-10
+//  1 2 3 5 10 avgGap = [ 1,  1,   2,   5 ] / 4 = x
+//  totalGap = Max-min(10 - 1)  = x * gap nums(n-1)
+//  x = Max - min / n - 1
+// If every gap is smaller or equal to Floor of (max-min)/(n-1),
+// then average number won't be (max-min)/(n-1), 
+// so there must be a gap larger than Ceil of (max-min)/(n-1)
 */
 func maximumGap1(nums []int) int {
 
@@ -131,8 +130,9 @@ func maximumGap(nums []int) int {
 		bucketsMax[i] = math.MinInt
 	}
 	for i := range nums {
+		// 可以不放置 maxVal 和  minV
+		// 就可以使用 n-1个 筒子了
 		bIndex := (nums[i] - minV) / bucketSize
-
 		bucketsMin[bIndex] = min(bucketsMin[bIndex], nums[i])
 		bucketsMax[bIndex] = max(bucketsMax[bIndex], nums[i])
 	}
