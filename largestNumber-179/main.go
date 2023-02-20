@@ -1,8 +1,10 @@
 package main
 
-import "sort"
-import "fmt"
-import "strings"
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
 
 func main() {
 	fmt.Println(largestNumber([]int{
@@ -12,12 +14,10 @@ func main() {
 		330,
 	}))
 	fmt.Println(largestNumber([]int{
-		//算法1其实也是比较 a+b和b+a俩中情况
-		// 1当 432率先结束并从头开始时, 即相当于以43243开头的字符串
-		// 2当第二次432到2时, 43243结束从头4开始, 相当于432开头的字符串
-		// 43243 432 字符串1
-		// 432 43243 字符串2
-		// 
+		// 432 43243
+		// 432 end从头开始 43         2  == 432 43243 == "432" + "43243"
+		// 432            43 (也从头) 4  == 43243 4  == "43243" + "432"
+		// 其实也是比较 a+b和b+a俩中情况
 		432,
 		43243,
 	}))
@@ -80,6 +80,7 @@ func largestNumber1(nums []int) string {
 	}
 	return strings.Join(strs, "")
 }
+
 // 330, 331
 // "330" + "331" compare 331+"330"
 func largestNumber(nums []int) string {
