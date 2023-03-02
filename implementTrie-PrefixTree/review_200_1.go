@@ -1,55 +1,49 @@
 package main
-/*
-// a b c
-// b a b
 
-mp[a]				[a   	nil  nil]         insert abc
-  [a][b] 		[nil, b, 	nil]
-	[a][b][c] [nil, nil, c]
-	
-mp[b]				[a   		 	b   nil]        insert bab
-	[b][a] 		[a, 			nil, nil]								 
-	[b][a][c] [nil, nil, c]
-*/
 type Trie struct {
-	mp     [26]*Trie
+	sub    [26]*Trie
 	isWord bool
 }
 
 func Constructor() Trie {
-	return Trie{
-		mp:     [26]*Trie{},
-		isWord: false,
-	}
+	return Trie{}
 }
 
-// { mp:[]}
 func (this *Trie) Insert(word string) {
+	// hello
+	// h
+	//  e
+	//    l
+	//      l
+	//        o
 	for i := range word {
-		if this.mp[word[i]-'a'] == nil {
-			this.mp[word[i]-'a'] = &Trie{}
+		char := word[i] - 'a'
+		if this.sub[char] == nil {
+			this.sub[char] = &Trie{}
 		}
-		this = this.mp[word[i]-'a']
+		this = this.sub[char]
 	}
 	this.isWord = true
 }
 
 func (this *Trie) Search(word string) bool {
 	for i := range word {
-		if this.mp[word[i]-'a'] == nil {
+		char := word[i] - 'a'
+		if this.sub[char] == nil {
 			return false
 		}
-		this = this.mp[word[i]]
+		this = this.sub[char]
 	}
 	return this.isWord
 }
 
 func (this *Trie) StartsWith(prefix string) bool {
 	for i := range prefix {
-		if this.mp[prefix[i]] == nil {
+		char := prefix[i] - 'a'
+		if this.sub[char] == nil {
 			return false
 		}
-		this = this.mp[prefix[i]]
+		this = this.sub[char]
 	}
 	return true
 }

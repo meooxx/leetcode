@@ -1,5 +1,5 @@
 package main
-
+import "strings"
 type Trie struct {
 	mp map[string]bool
 }
