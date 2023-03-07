@@ -1,7 +1,7 @@
 package main
 
 // base on rob 1
-// we just divide the this problem to 2 sub problem
+// we just divide this problem into 2 sub problem
 // 1, 0-len-1   rob1
 // 2, 1-len     rob2
 // return max(rob1, rob2)
