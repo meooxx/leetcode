@@ -22,7 +22,8 @@ func containsNearbyAlmostDuplicate(nums []int, indexDiff int, valueDiff int) boo
 		return false
 	}
 	bucketMp := map[int]int{}
-	// ??  valueDiff + 1
+	// valueDiff + 1   ?? 
+	// avoid valueDiff == 0
 	width := valueDiff + 1
 	abs := func(a int) int {
 		if a < 0 {
@@ -52,6 +53,7 @@ func containsNearbyAlmostDuplicate(nums []int, indexDiff int, valueDiff int) boo
 		// whyyyy not considering nums[i] < 0?
 		// if use blow case, it will fail
 		// -1 10 20 -1
+		// so I believe this case is not being covered by leetcode
 		if i >= indexDiff {
 			bucket := nums[i-indexDiff] / width
 			// I think it required 
