@@ -2,7 +2,7 @@ package main
 
 import "strings"
 
-func numberToWords1(num int) string {
+func numberToWords(num int) string {
 	if num == 0 {
 		return "Zero"
 	}
@@ -18,14 +18,14 @@ func numberToWords1(num int) string {
 		"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety",
 	}
 	digit1000 := []string{
-		"Hundred", "Thousand", "Million", "Billion",
+		"", "Thousand", "Million", "Billion",
 	}
 	encode := func(num int) string {
 		result := []string{}
 		if num >= 100 {
 			index := num / 100
 			result = append(result, digit1[index])
-			result = append(result, digit1000[0])
+			result = append(result, "Hundred")
 			// X Hundred
 			num %= 100
 		}
@@ -48,8 +48,7 @@ func numberToWords1(num int) string {
 	for num > 0 {
 		d := num % 1000
 		encodeDecimal := encode(d)
-		// 加 thousand, million...
-		if encodeDecimal != "" && thousandIndex > 0 {
+		if encodeDecimal != "" {
 			result = " " + digit1000[thousandIndex] + " " + result
 		}
 		result = encodeDecimal + result
