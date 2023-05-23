@@ -1,13 +1,18 @@
 package main
-//  ( ) ) 
-//    ) ) ,   // first level 
-//  (   )     	 at first finded (minium step) and stop the procedure
-//  ( )       	 dupalicate
-//          // second level
-//      )
-//    )
-//  (   ) ... 
-func removeInvalidParentheses(s string) []string {
+
+// ( ) )
+//
+//	) ) ,   // first level
+//
+// (   )     	 at first finded (minium step) and stop the procedure
+// ( )       	 dupalicate
+//
+//	      // second level
+//	  )
+//	)
+//
+// (   ) ...
+func removeInvalidParentheses0(s string) []string {
 	isValid := func(s string) bool {
 		stack := 0
 		for i := range s {
@@ -60,4 +65,46 @@ func removeInvalidParentheses(s string) []string {
 	}
 	return anwser
 
+}
+
+// () )   (()
+func removeInvalidParentheses(s string) []string {
+	var remove func(s string, lastIndex, lastInvalid int, p0, p1 byte)
+	anwser := []string{}
+	remove = func(s string, lastIndex, lastInvalid int, p0, p1 byte) {
+		stack := 0
+		for i := lastIndex; i < len(s); i++ {
+			if s[i] == p0 {
+				stack++
+			}
+			if s[i] == p1 {
+				stack--
+			}
+			if stack >= 0 {
+				continue
+			}
+			for j := lastInvalid; j < len(s); j++ {
+				//                        j == 0   || ))去重复
+				if s[j] == p1 && (j == lastInvalid || s[j-1] != p1) {
+					remove(s[:j]+s[j+1:], i, j, p0, p1)
+				}
+			}
+			// last i 处理
+			return
+		}
+		bts := []byte(s)
+		for i, j := 0, len(bts)-1; i < j; {
+			bts[i], bts[j] = bts[j], bts[i]
+			i++
+			j--
+		}
+		// case: (()
+		if p0 == '(' {
+			remove(string(bts), 0, 0, ')', '(')
+		} else {
+			anwser = append(anwser, string(bts))
+		}
+	}
+	remove(s, 0, 0, '(', ')')
+	return anwser
 }
