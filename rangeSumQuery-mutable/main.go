@@ -11,7 +11,12 @@ type SegmentTree struct {
 	Start int
 	End   int
 }
-
+// 1 2 3 4 5 6 7
+// 			 |_______mid
+//     l(1-4)           r(5-7)
+// l(1-3)   r(4)    l(5-6)   r(7) 
+// (1-2)  3          5  6        
+// 1 2 
 func buildTree(start, end int, nums []int) *SegmentTree {
 	if start > end {
 		return nil
@@ -58,10 +63,12 @@ func Constructor(nums []int) NumArray {
 func (this *NumArray) Update(index int, val int) {
 	updateTree(index, val, this.st)
 }
-
-//	1-4   5-7
-//
-// 1-2  3
+//      		mid
+//			1-4   		5-7
+//    
+//    1-3   		 5 6   7
+//  1-2  3     5    6
+// 1   2
 func (this *NumArray) SumRange(left int, right int) int {
 	return sumRange(this.st, left, right)
 }
