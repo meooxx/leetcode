@@ -5,7 +5,7 @@ package main
 // s0   0     0    0   1   2    2
 // s1  -1    -1   -1  -1   1    1
 // s2  -Inf   0    1   2   1    3
-func maxProfit(prices []int) int {
+func maxProfit0(prices []int) int {
 	s0 := make([]int, len(prices)+1)
 	s1 := make([]int, len(prices)+1)
 	s2 := make([]int, len(prices)+1)
@@ -25,4 +25,33 @@ func maxProfit(prices []int) int {
 	}
 	fmt.Println(s0, s2)
 	return max(s0[len(prices)], s2[len(prices)])
+}
+
+func maxProfit(prices []int) int {
+	// buy := make([]int, len(prices) + 1)
+	// sell := make([]int, len(prices) + 1)
+	// cooldown := make([]int, len(prices) + 1)
+
+	// base case
+	buy := -prices[0]
+	sell := 0
+	cooldown := 0
+	max := func(a, b int) int {
+		if a > b {
+			return a
+		}
+		return b
+	}
+	//       1   2    4   0   5
+	//  -1  -1  -1   -1   1   1
+	//  0   0   1    3    3   6
+	//  0   0   0    1    3   3
+	for i := range prices {
+		maxbuy := max(buy, cooldown-prices[i])
+		maxsell := max(sell, prices[i]+buy)
+		cooldown = max(cooldown, sell)
+		buy = maxbuy
+		sell = maxsell
+	}
+	return max(cooldown, sell)
 }
