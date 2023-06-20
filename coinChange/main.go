@@ -1,5 +1,19 @@
 package main
 
+import "math"
+
+// amount   M for MaxInt
+//
+//	     1 				 2 								5    conins
+//	0    0 				 0 								0
+//	1    1 				 M 								M
+//	2    2 				 1 								M
+//	3    3 				 2 								M
+//	4    4 				 2 								M
+//	5    5 				-1 								1
+//	6    6  3(1+ dp(6-2))   2 == 1 + dp(6-5)
+//
+// ..
 func coinChange(coins []int, amount int) int {
 	dp := make([]int, amount+1)
 	// sort.Slice(coins, func(a, b int) bool {
