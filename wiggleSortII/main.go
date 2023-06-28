@@ -10,7 +10,7 @@ func main() {
 	wiggleSort(nums)
 	fmt.Println(nums)
 }
-
+// sort
 func wiggleSort0(nums []int) {
 	copied := make([]int, len(nums))
 	copy(copied, nums)
@@ -33,16 +33,22 @@ func wiggleSort0(nums []int) {
 func getIndex(n int, l int) int {
 	return (1 + 2*n) % (l | 1)
 }
+// O(n) quick select
 func wiggleSort(nums []int) {
 	median := findKthLargestNum(nums, (len(nums)+1)/2)
 	left, right := 0, len(nums)-1
-
 	for i := 0; i <= right;{
 		mappedIndex := getIndex(i, len(nums))
 		if nums[mappedIndex] > median {
 			mappedLeft := getIndex(left, len(nums))
 			nums[mappedIndex], nums[mappedLeft] = nums[mappedLeft], nums[mappedIndex]
 			left++
+			// i++?
+			// 7 10  0  8  3      6
+			// i is great or equal left
+			// and `nums[mappedIndex]` >= median
+			// or the value of `mappedIndex` and `right` should be switched
+			// so nums[mappedLeft] is always great or equal to  median
 			i++
 		} else if nums[mappedIndex] < median {
 			mappedRight := getIndex(right, len(nums))
