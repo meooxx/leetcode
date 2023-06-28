@@ -45,7 +45,8 @@ func findKthLargest(nums []int, k int) int {
 		// 1, 1 => j-- => i <= j == false
 		// size == 2
 		for i <= j {
-			// case: i == j, e.g. 1,2
+			// case: i == j, e.g. 1,2,
+			// and if no 'i <= j', nums[-1] will throw error
 			for i <= j && nums[i] < pivot {
 				i++
 			}
@@ -55,9 +56,7 @@ func findKthLargest(nums []int, k int) int {
 			if i <= j {
 				nums[i], nums[j] = nums[j], nums[i]
 				i++
-			} else {
-				break
-			}
+			} 
 		}
 		nums[right], nums[i] = nums[i], nums[right]
 		// 1 6 3 5
