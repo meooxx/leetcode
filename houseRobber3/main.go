@@ -34,7 +34,10 @@ func max(a, b int) int {
 //|							 root+left(no r)+right(no r)	|| max(l1,l2) + max(r1, r2) 
 //|   3  5          	                          =>  (3,0) (5,0)
 //                    left(r, no r)       right(r, no r)
-//  
+
+// 1 rob the root, sum = val + left(not rob) + right (not rob) no directly rob
+// 2 not robbing the root , sum = max of left + max of right 
+// 															= max(rob left root, not left root) + max(rob right root, no right root)
 func robImpl(root *TreeNode) (int, int) {
 	if root == nil {
 		return 0, 0
