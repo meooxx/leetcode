@@ -58,7 +58,9 @@ func search(word string, index int, root *Trie, result *[][]int) {
 			return
 		}
 	}
-
+	// whole string match, like, "tab" vs "bat"
+	// "t" is not a word, "ta" is Not a word . "tab" is a word ,but the rest of 'tab' is ""
+	// and "" is Not palindome
 	for i := range root.List {
 		if root.List[i] != index {
 			*result = append(*result, []int{index, root.List[i]})
