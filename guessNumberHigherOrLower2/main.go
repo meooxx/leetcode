@@ -49,7 +49,7 @@ func getMoney(left, right int, dp [][]int) int {
 //  3-4  -> 3
 //  4-5  -> 4
 // 
-// dp[i][i] == 0, e.g. 2-2, 1-1, 3-3 的范围,only 2
+// dp[i][i] == 0, e.g. 2-2, 1-1, 3-3 的范围
 // 1-5 =>
 // min
 //		1+Max(dp[1][0], d[2][5])
@@ -57,7 +57,23 @@ func getMoney(left, right int, dp [][]int) int {
 //  	3 + Max(dp[1][2], dp[4][5] )
 // 
 
-func getMoneyAmount(n int) int {
+
+import "math"
+func max(a, b int) int {
+    if a > b {
+        return a
+    }
+    return b
+}
+
+func min(a, b int) int {
+    if a < b {
+        return a
+    }
+    return b
+}
+
+func getMoneyAmount0(n int) int {
 	dp := make([][]int, n+2)
 	for i := range dp {
 		dp[i] = make([]int, n+2)
@@ -74,3 +90,26 @@ func getMoneyAmount(n int) int {
 	}
 	return dp[1][n]
 }
+func getMoneyAmount(n int) int {    
+    dp := make([][]int, n+2)
+    for i := range dp {
+        dp[i] = make([]int, n+2)
+    }
+		//    			5
+		//   len 	1~5
+		//    i   1~ n-len
+		//    j   i+len  (1,2), (2,3) (3,4) (4,5) ~ (1,3) (2,4), (3,5)...
+		// dp[i][j] = min(dp[i][i], k+max(dp[i][k-1], dp[k+1][j]))
+    for len:=1;len<n;len++ {
+        for i:=1;i<=n-len;i++ {
+            j:= i + len
+            dp[i][j] = math.MaxInt
+            for k:=i;k<=j;k++ {
+                dp[i][j] = min(dp[i][j], k+max(dp[i][k-1], dp[k+1][j]))
+            }
+        }
+    }
+
+    return dp[1][n]
+}
+
