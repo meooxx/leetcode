@@ -3,97 +3,96 @@ package main
 import "container/heap"
 
 type Tweet struct {
-	id    int
-	index int
-	next  *Tweet
+	Id    int
+	Index int
+	Next  *Tweet
 }
 
 type TweetHeap []*Tweet
 
-func (h TweetHeap) Less(i, j int) bool {
-	return h[i].index > h[j].index
+func (this TweetHeap) Len() int {
+	return len(this)
+}
+func (this TweetHeap) Less(a, b int) bool {
+	return this[a].Index > this[b].Index
+}
+func (this TweetHeap) Swap(a, b int) {
+	this[a], this[b] = this[b], this[a]
 }
 
-func (h TweetHeap) Len() int {
-	return len(h)
+func (this *TweetHeap) Push(x any) {
+	*this = append(*this, x.(*Tweet))
 }
 
-func (h TweetHeap) Swap(i, j int) {
-	h[i], h[j] = h[j], h[i]
-}
-
-func (h *TweetHeap) Push(x any) {
-	*h = append(*h, x.(*Tweet))
-}
-
-func (h *TweetHeap) Pop() any {
-	n := len(*h) - 1
-	last := (*h)[n]
-	*h = (*h)[:n]
+func (this *TweetHeap) Pop() any {
+	l := len(*this)
+	last := (*this)[l-1]
+	*this = (*this)[:l-1]
 	return last
 }
 
 type Twitter struct {
-	Post      map[int]*Tweet
-	Followees map[int]map[int]int
-	Index     int
+	Post     map[int]*Tweet
+	Followee map[int]map[int]int
+	count    int
 }
 
 func Constructor() Twitter {
+
 	return Twitter{
-		Post:      map[int]*Tweet{},
-		Followees: map[int]map[int]int{},
+		Post:     map[int]*Tweet{},
+		Followee: map[int]map[int]int{},
+		count:    0,
 	}
 }
 
 func (this *Twitter) PostTweet(userId int, tweetId int) {
 	this.Post[userId] = &Tweet{
-		tweetId, this.Index, this.Post[userId],
+		Id:    tweetId,
+		Next:  this.Post[userId],
+		Index: this.count,
 	}
-	this.Index++
-
+	this.count++
 }
 
 func (this *Twitter) GetNewsFeed(userId int) []int {
-	myFeeds := TweetHeap{}
-	heap.Init(&myFeeds)
-
+	h := &TweetHeap{}
+	heap.Init(h)
 	if this.Post[userId] != nil {
-		heap.Push(&myFeeds, this.Post[userId])
+		heap.Push(h, this.Post[userId])
 	}
-	followees := this.Followees[userId]
-	for id := range followees {
-		if this.Post[id] != nil {
-			heap.Push(&myFeeds, this.Post[id])
+	for v := range this.Followee[userId] {
+		if this.Post[v] != nil {
+			heap.Push(h, this.Post[v])
 		}
 	}
-	feeds := []int{}
-	for len(feeds) < 10 && len(myFeeds) > 0 {
-		feed := heap.Pop(&myFeeds).(*Tweet)
-		if feed.next != nil {
-			heap.Push(&myFeeds, feed.next)
+	result := []int{}
+	for len(result) < 10 && len(*h) > 0 {
+		t := heap.Pop(h).(*Tweet)
+		if t.Next != nil {
+			heap.Push(h, t.Next)
 		}
-		feeds = append(feeds, feed.id)
+		result = append(result, t.Id)
 	}
-	return feeds
+	return result
 }
 
 func (this *Twitter) Follow(followerId int, followeeId int) {
-	if this.Followees[followerId] == nil {
-		this.Followees[followerId] = map[int]int{}
+	if this.Followee[followerId] == nil {
+		this.Followee[followerId] = map[int]int{}
 	}
-	this.Followees[followerId][followeeId] = 0
+	this.Followee[followerId][followeeId] = 1
 }
 
 func (this *Twitter) Unfollow(followerId int, followeeId int) {
-	delete(this.Followees[followerId], followeeId)
+	delete(this.Followee[followerId], followeeId)
 }
 
 /**
-* Your Twitter object will be instantiated and called as such:
-* obj := Constructor();
-* obj.PostTweet(userId,tweetId);
-* param_2 := obj.GetNewsFeed(userId);
-* obj.Follow(followerId,followeeId);
-* obj.Unfollow(followerId,followeeId);
+ * Your Twitter object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.PostTweet(userId,tweetId);
+ * param_2 := obj.GetNewsFeed(userId);
+ * obj.Follow(followerId,followeeId);
+ * obj.Unfollow(followerId,followeeId);
  */
