@@ -33,6 +33,10 @@ func addWord(word string, index int, t *Trie) {
 				Index: -1,
 			}
 		}
+		// aaa should put into list of a, aa 
+		// but if we check t.Index == -1, it will be false
+		// Obviously, aa did not show yet
+		// then we search aa, now t.Index = 1
 		if isPalindrome(word, 0, i) {
 			t.List = append(t.List, index)
 		}
