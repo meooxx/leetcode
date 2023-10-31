@@ -24,7 +24,7 @@ func mergeSortCount(sums []int, left, right int, lower, upper int) int {
 	count := leftCount + rightCount
 	// valid index start
 	startIndex := mid + 1
-	// vaid index end
+	// valid index end
 	endIndex := mid + 1
 	// val of index that is smaller that sums[i]
 	minIndex := mid + 1
