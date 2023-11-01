@@ -33,6 +33,23 @@ func wiggleSort0(nums []int) {
 func getIndex(n int, l int) int {
 	return (1 + 2*n) % (l | 1)
 }
+//  0 1 2 3 4 5
+//  S L S L S L   s for small, l for large
+
+// left  is next index that can put num > median                   
+// right is next index that can put num < median
+//                  (i)       			5 is a median of nums
+//       nums[mapped(0)==1] == 6 >  5,  swap(mapped(left==0), 1) left++,i++ (left++ mean put 6) 
+//       nums[mapped(1)==3] == 5 == 5,  i++
+//       nums[mapped(2)==5] == 2 <  5,  swap(mapped(right==4), 5) right--(mean put 2) 	13   6    5    5   2  4
+//       										== 4 <  5,  swap(mapped(right==2), 5) right-- 						  13   6    4    5   2  5
+//													== 5 == 5,  i++
+//            mapped(3)==0  == 13 > 5, 	swap(mapped(left==1), 0) left++, i++            5    6    4    13   2  5
+//              left                    right
+//               i    
+// Original idx: 0    1    2    3    4    5  
+// Mapped idx:   1    3    5    0    2    4 
+// Array:        13   6    5    5    4    2 
 // O(n) quick select
 func wiggleSort(nums []int) {
 	median := findKthLargestNum(nums, (len(nums)+1)/2)
