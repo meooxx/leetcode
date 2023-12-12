@@ -1,6 +1,7 @@
 package main
 
-// [ 1, n ]
+// [ 1... n ],
+// we only need 1 ~ len(nums) -2 space to store coins
 func maxCoins(nums []int) int {
 	nums = append([]int{1}, nums...)
 	nums = append(nums, 1)
@@ -28,6 +29,8 @@ func solve(nums []int, i, j int, dp [][]int) int {
 	maxV := 0
 	for last := i; last <= j; last++ {
 		left := solve(nums, i, last-1, dp)
+		// if we pick last, then ballon of i~last-1 will burst before the last
+		// so the total coins of cur is nums[i-1] * nums[last] * nums[j+1]
 		cur := nums[i-1] * nums[last] * nums[j+1]
 		right := solve(nums, last+1, j, dp)
 		maxV = max(maxV, left+cur+right)
