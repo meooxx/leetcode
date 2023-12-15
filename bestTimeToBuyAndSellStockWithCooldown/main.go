@@ -43,7 +43,7 @@ func maxProfit(prices []int) int {
 		return b
 	}
 	//       1   2    4   0   5
-	//  -1  -1  -1   -1   1   1
+	//  -1  -1  -1   -1   1   -2
 	//  0   0   1    3    3   6
 	//  0   0   0    1    3   3
 	for i := range prices {
