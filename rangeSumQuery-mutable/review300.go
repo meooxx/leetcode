@@ -37,7 +37,7 @@ func buildTree(nums []int, start, end int) *SegmentTree {
 
 		mid := (end-start)/2 + start
 		left := buildTree(nums, start, mid)
-		right := buildTree(nums, mid+1, end)
+		right := buildTree(nums, mid+1, start)
 
 		st.Left = left
 		st.Right = right
@@ -47,21 +47,20 @@ func buildTree(nums []int, start, end int) *SegmentTree {
 }
 
 func (this *NumArray) Update(index int, val int) {
-	UpdateTree(this.st, index, val)
+	UpdateTree(*this.st, index, val)
 }
-func UpdateTree(st *SegmentTree, index int, val int) {
-	if st.Start == index && st.End == index {
+func UpdateTree(st SegmentTree, index int, val int) {
+	if st.Start == st.End && st.End == index {
 		st.Sum = val
 		return
 	}
 
-	mid := (st.End-st.Start)/2 + st.Start
+	mid := (st.End - st.Start) / 2
 	if index <= mid {
-		UpdateTree(st.Left, index, val)
+		UpdateTree(*st.Left, index, val)
 	} else {
-		UpdateTree(st.Right, index, val)
+		UpdateTree(*st.Right, index, val)
 	}
-	st.Sum = st.Left.Sum + st.Right.Sum
 }
 
 func (this *NumArray) SumRange(left int, right int) int {
