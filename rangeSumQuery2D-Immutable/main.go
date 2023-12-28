@@ -14,7 +14,7 @@ func Constructor(matrix [][]int) NumMatrix {
 	//   7  8  9         0 |-------------sum8-------sum(9)               
 	//   10 11 12        0 |-------------sum(11)-----12
 	//                           状态转移    sum(12) == sum9 + sum11 -sum8 + 12
-	// 												根据sum表和图示可求 sum(8-12) = sum(12) - sum9 - sum11 -sum8
+	// 												根据sum表和图示可求 sum(8-12) = sum(12) - sum9 - sum11 + sum8
 	for i := range sum {
 		sum[i] = make([]int, len(matrix[0])+1)
 	}
