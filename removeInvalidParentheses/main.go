@@ -80,18 +80,21 @@ func removeInvalidParentheses(s string) []string {
 			if s[i] == p1 {
 				stack--
 			}
+			// ((() stack > 0
+			// ())) stack < 0
 			if stack >= 0 {
 				continue
 			}
 			for j := lastInvalid; j < len(s); j++ {
-				//                        j == 0   || ))去重复
+				//                  第一个就是非法字符或者重复的闭括号
+				//                        )   || ))
 				if s[j] == p1 && (j == lastInvalid || s[j-1] != p1) {
 					remove(s[:j]+s[j+1:], i, j, p0, p1)
 				}
 			}
-			// last i 处理
 			return
 		}
+		// if (() -> )((
 		bts := []byte(s)
 		for i, j := 0, len(bts)-1; i < j; {
 			bts[i], bts[j] = bts[j], bts[i]
@@ -107,4 +110,8 @@ func removeInvalidParentheses(s string) []string {
 	}
 	remove(s, 0, 0, '(', ')')
 	return anwser
+}
+
+func main() {
+	removeInvalidParentheses("))()")
 }
