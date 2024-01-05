@@ -21,8 +21,9 @@ func removeInvalidParentheses(s string) []string {
 			if count >= 0 {
 				continue
 			}
+			// j 相当于 last +1, cause a char has been removed
 			for j := lastPos; j < len(str); j++ {
-
+	
 				// j == lastPost for str which start with')'
 				// like ))()
 				if str[j] == p1 && (j == lastPos || str[j-1] != p1) {
@@ -38,6 +39,7 @@ func removeInvalidParentheses(s string) []string {
 			i++
 			j--
 		}
+		// remove ((), '('
 		if p0 == '(' {
 			remove(string(strBy), 0, 0, ')', '(')
 		} else {
