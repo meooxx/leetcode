@@ -6,8 +6,9 @@ type IntHeap struct {
 	Values   []int
 	LessFunc func(int, int) bool
 }
-// low: maxHeap   3 2 1     3 2 1     
-// high: minHeap  4 5       4 5 6
+//        small part         large part
+// even   3 2 1(maxHeap)     3 4 5 (minHeap)    
+// odd    5 4                5 6 7
 // if size is odd, push(low) , push(pop(low))
 //                 median = low.Peek()
 // if size is even, push(high), push(pop(hight)) 
