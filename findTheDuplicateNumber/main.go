@@ -37,11 +37,10 @@ func findDuplicate1(nums []int) int {
 // else search left, mid
 // 1,2,2, 3,4
 // r,l
-// 5,1   mid ==3 == (5-1)/2+1,  total nums[i] <3 == 4
-// 3,1   mid == 2 == (3-1)/2+1, total            == 3
-// 2,1   mid == 1 == (2-1)/2+1, total            == 1
-// 2,1   got 2
-// (n-1 /2) +1
+// 4,1   mid == 2 == (4-1)/2+1,  total nums[i] == 3 <= 2 
+// 2,1   mid == 1 == (2-1)/2+1,  total         == 1 <= 1
+//       mid = 1+1
+//  anwser = 2
 func findDuplicate0(nums []int) int {
 	left := 1
 	right := len(nums) - 1
