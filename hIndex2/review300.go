@@ -11,9 +11,7 @@ package main
 func hIndex(citations []int) int {
 
 	left, right := 0, len(citations)-1
-
-	//  left == right ?
-	//  1,2
+	// e.g [0]
 	for left <= right {
 		midIndex := (right-left)/2 + left
 		if citations[midIndex] > len(citations)-midIndex {
