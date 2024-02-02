@@ -43,9 +43,9 @@ func maxSlidingWindow(nums []int, k int) []int {
 			q = q[:len(q)-1]
 		}
 		q = append(q, i)
-		// i - k == q[0] is same
+		// is same  as {i - k == q[0]}
 		// 1 4 2 5
-		//     if i-k == q[0], the i will be at 5 position
+		//     if i-k == q[0], the i will be at  position '5'
     if i - k + 1 > q[0] {
       q = q[1:]
     }
