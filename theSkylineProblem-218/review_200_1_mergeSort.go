@@ -43,7 +43,6 @@ func getSkylineImpl(buildings [][]int) [][]int {
 	preH2 := 0
 	x := 0
 	pre := 0
-	fmt.Println(left, right)
 	for i < len(left) && j < len(right) {
 		p1  := left[i]
 		p2 := right[j]
