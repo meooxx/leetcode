@@ -20,7 +20,7 @@ func shortestPalindrome(s string) string {
 	// 01 2  3    45
 	//    i' i-1  i  j
 	for j < len(sNew) {
-        fmt.Println(string(sNew[i]), string(sNew[j]))
+        
 		if sNew[i] == sNew[j] {
 			i++
 			table[j] = i
