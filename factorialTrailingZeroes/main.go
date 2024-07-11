@@ -19,9 +19,9 @@ func trailingZeroes1(n int) int {
 }
 
 // https://www.purplemath.com/modules/factzero.htm
-// zero is comes 10, 10 = 10 , 100 = 10*10,...
+// zero is comes from 10, 10 = 10 , 100 = 10*10,...
 // 10 == 5*2, and 2 is more than 5, so we can only consider 5
-// but 25 == 5*5, every 25 has extra factor 
+// but 25 == 5*5, every 25 has an extra factor 
 // 	e.g. 5 15 10 15 25(5 5) = 5 15 10 5(replace 25) 5(extra)
 // 	
 // n / 5 + n/5^2 + n/5^3
