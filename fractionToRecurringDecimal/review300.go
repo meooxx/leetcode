@@ -15,40 +15,35 @@ func fractionToDecimal(numerator int, denominator int) string {
 		neg = !neg
 		denominator = -denominator
 	}
+	result := ""
+	fMap := map[int]int{}
 	d := numerator / denominator
 	n := (numerator % denominator) * 10
-	floatNum := ""
-	// why index start from 1?
-	// CUZ' 0 is stand for 'not existing'
-	// and 0 is default value of int
+	floatStr := ""
 	index := 1
-	// num -> index
-	fMap := map[int]int{}
 	for n > 0 && fMap[n] == 0 {
 		fMap[n] = index
-		if n >= denominator {
-			floatNum += fmt.Sprint(n / denominator)
-			n = n % denominator * 10
+		if n > denominator {
+			floatStr += fmt.Sprint(n / denominator)
+			n = (n % denominator) * 10
 		} else {
-			floatNum += "0"
-			n = n * 10
+			floatStr += "0"
+			n *= 10
 		}
 		index++
 	}
-
-	result := ""
 	if neg {
-		result += "-"
+		result = "-"
 	}
 	result += fmt.Sprint(d)
-	if floatNum != "" {
+	if floatStr != "" {
 		result += "."
 	}
-	if n != 0 {
-		result += fmt.Sprintf("%s(%s)", floatNum[:fMap[n]-1], floatNum[fMap[n]-1:])
+	if n > 0 {
+		result += fmt.Sprintf("%s(%s)", floatStr[:fMap[n]-1], floatStr[fMap[n]-1:])
 	} else {
-		result += floatNum
+		result += floatStr
+
 	}
 	return result
-
 }
