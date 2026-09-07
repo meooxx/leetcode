@@ -36,7 +36,7 @@ func longestPalindromeExpand(s string) string {
 // 0 a  T   t(1)    t(2)  t(4)
 // 1 b       T      t(3)  t(5)
 // 2 b         	    T     t(6)
-// 3 a         		  	  T
+// 3 a         		  	  	T
 
 // 且 i, j关系如下
 // j == 3
