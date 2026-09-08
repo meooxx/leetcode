@@ -1,33 +1,24 @@
 function convert(s: string, numRows: number): string {
-	let index = 0
-	const mp: string[][] = []
-	let anwser = ""
-	let col = 0
-
-	while (index < s.length) {
-		let row = 0
-		for (; row < numRows; row++) {
-			if (mp[row] === undefined) {
-				mp[row] = []
-			}
-			mp[row][col] = s[index]
-			index++
-
-		}
-
-		row = numRows-2
-		col++
-		while (row > 0) {
-			mp[row][col] = s[index]
-			row--
-			index++
-		}
-		col++
+	if (numRows === 1) {
+		return s
 	}
-	mp.forEach((arr) => {
-		anwser += arr.filter(Boolean).join('')
-	})
-	return anwser
+	let index = 0
+	const mp: string[] = Array(numRows).fill('')
+	let direction = 1
+	let row = 0
+	while (index < s.length) {
+		mp[row] += s[index]
+		index++
+		if (row === numRows - 1) {
+			direction = -1
+		}
+		if (row === 0) {
+			direction = 1
+		}
+		row += direction
+	}
+	return mp.join('')
+
 };
 
 
