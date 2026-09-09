@@ -38,7 +38,6 @@ function isMatch(s: string, p: string): boolean {
 			}
 		}
 	}
-	console.log(dp)
 	return dp[s.length][p.length]
 };
 
