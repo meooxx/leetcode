@@ -45,8 +45,8 @@ func isMatch3(s string, p string) bool {
 			m[0][i+1] = m[0][i-1]
 		}
 	}
-	// ab*c   
-	// abbc   
+	// ab*c
+	// abbc
 	//  a-a T,  a-ab F,  a-ab* T, a-ab*c F,
 	//  b-a F, b-ab T(ab-ab), b-ab* T, b-ab*c F
 	//  b-aF, b-ab F(abb-ab)...
@@ -70,34 +70,34 @@ func isMatch3(s string, p string) bool {
 }
 
 func isMatch(s string, p string) bool {
-    dp := make([][]bool, len(p) + 1)
-    for i:= 0;i<=len(p);i++{
-        dp[i] = make([]bool, len(s)+1)
-    }
+	dp := make([][]bool, len(p)+1)
+	for i := 0; i <= len(p); i++ {
+		dp[i] = make([]bool, len(s)+1)
+	}
 	dp[0][0] = true
 
-	for i:=1;i<len(p);i++{
+	for i := 1; i < len(p); i++ {
 		if p[i] == '*' {
 			dp[i+1][0] = dp[i-1][0]
 		}
 	}
-    
-    for pIndex := 0;pIndex<len(p);pIndex++ {
-        for index:=0;index<len(s);index++{
-            if s[index] == p[pIndex] || p[pIndex] == '.' {
-                dp[pIndex+1][index+1] = dp[pIndex][index]    
-            }else if p[pIndex] == '*' {
+
+	for pIndex := 0; pIndex < len(p); pIndex++ {
+		for index := 0; index < len(s); index++ {
+			if s[index] == p[pIndex] || p[pIndex] == '.' {
+				dp[pIndex+1][index+1] = dp[pIndex][index]
+			} else if p[pIndex] == '*' {
 				// aa a*
 				// abc ab*c
 				if p[pIndex-1] == '.' || s[index] == p[pIndex-1] {
 					dp[pIndex+1][index+1] = dp[pIndex][index+1] || dp[pIndex+1][index] || dp[pIndex-1][index+1]
-				}else {
+				} else {
 					dp[pIndex+1][index+1] = dp[pIndex-1][index+1]
 				}
-            }
-            
-        }
-    }
-    return dp[len(p)][len(s)]
-    
+			}
+
+		}
+	}
+	return dp[len(p)][len(s)]
+
 }
