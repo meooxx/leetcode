@@ -59,19 +59,22 @@ function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
 
 	let fast = head
 	let slow = head
+	//    quick: start from here 3
+	//    when quick point reach the end
 	// 1- 2- 3- 4
-	//      1   2
-	for (let i = 1; i < n; i++) {
+	//    slow: 1, ending at 2 position
+	//      1   2  [3  4]
+	for (let i = 0; i < n; i++) {
 		if (fast !== null) {
 			fast = fast.next
 		}
 	}
-	if (fast === null) return head
-	while (fast !== null) {
+	if (fast === null) return head!.next
+	while (fast.next !== null) {
 		fast = fast.next
 		slow = slow!.next
 	}
-	slow!.next = slow!.next?.next || null
+	slow!.next = slow!.next!.next
 	return head
 
 }
