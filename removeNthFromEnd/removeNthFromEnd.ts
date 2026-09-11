@@ -3,7 +3,7 @@ import {
 	ListNode
 } from '../types.ts'
 
-function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+function removeNthFromEnd1(head: ListNode | null, n: number): ListNode | null {
 
 	const nodes: ListNode[] = []
 	let curr = head
@@ -25,3 +25,32 @@ function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
 	})
 	return dump.next
 };
+
+function removeNthFromEnd2(head: ListNode | null, n: number): ListNode | null {
+	let count = 0
+	let curr = head
+	while (curr !== null) {
+		curr = curr.next
+		count++
+	}
+	let index = 0
+	let dummy = new ListNode()
+	curr = dummy
+	// 1-2-3
+	while (head !== null) {
+		if (index === count - n) {
+			if (head.next !== null) {
+				curr.next = head.next
+			} else {
+				// this is the last node
+				curr.next = null
+			}
+			return dummy.next
+		}
+		curr.next = head
+		curr = curr!.next
+		head = head.next
+		index++
+	}
+	return dummy.next
+}
