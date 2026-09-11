@@ -54,3 +54,24 @@ function removeNthFromEnd2(head: ListNode | null, n: number): ListNode | null {
 	}
 	return dummy.next
 }
+
+function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+
+	let fast = head
+	let slow = head
+	// 1- 2- 3- 4
+	//      1   2
+	for (let i = 1; i < n; i++) {
+		if (fast !== null) {
+			fast = fast.next
+		}
+	}
+	if (fast === null) return head
+	while (fast !== null) {
+		fast = fast.next
+		slow = slow!.next
+	}
+	slow!.next = slow!.next?.next || null
+	return head
+
+}
