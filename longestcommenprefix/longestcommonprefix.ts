@@ -1,4 +1,4 @@
-function longestCommonPrefix(strs: string[]): string {
+function longestCommonPrefix1(strs: string[]): string {
 	let prefix = ''
 	let answer = ''
 	let len = 1
@@ -20,3 +20,15 @@ function longestCommonPrefix(strs: string[]): string {
 	return answer
 
 };
+
+function longestCommonPrefix(strs: string[]): string {
+	let prefix = strs[0]
+	for (let i = 0; i < prefix.length; i++) {
+		for (const str of strs) {
+			if (str[i] != prefix[i]) {
+				return prefix.slice(0, i)
+			}
+		}
+	}
+	return prefix
+}
