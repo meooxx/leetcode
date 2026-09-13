@@ -1,9 +1,11 @@
 import { ListNode } from '../types.ts'
 
 function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
-	return lists.reduce<ListNode | null>((pre, curr) => {
-		return mergeTwoLists(pre, curr)
-	}, null)
+	if (lists.length === 0) return null
+	if (lists.length === 1) return lists[0]
+	const left = mergeKLists(lists.slice(0, ~~(lists.length / 2)))
+	const right = mergeKLists(lists.slice(~~(lists.length / 2)))
+	return mergeTwoLists(left, right)
 };
 
 function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | null {
@@ -39,10 +41,3 @@ function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | nul
 
 	return dummy.next
 }
-
-mergeKLists([
-	new ListNode(1,
-		new ListNode(2)
-	),
-	new ListNode(3, new ListNode(4))
-])
