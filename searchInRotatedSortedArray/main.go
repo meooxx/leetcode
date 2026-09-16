@@ -25,8 +25,8 @@ func search(nums []int, target int) int {
 		if nums[mid] >= nums[0] && target >= nums[0] || nums[mid] < nums[0] && target < nums[0] {
 			midNum = nums[mid]
 			// 在右侧时候不可能等于num[0]
-			// 56 7 1 2   7,搜1 不可能等于 5
-			// 56 1 23   1 搜6
+			// 4 5 6 7 4 4 4 4   7,搜1 不可能等于 5
+			// 5 6 1 2 3   1 搜6
 		} else {
 			if target < nums[0] {
 				midNum = math.MinInt32
