@@ -1,8 +1,10 @@
+
+
+// https://leetcode.com/problems/search-in-rotated-sorted-array/solutions/154836/The-INF-and-INF-method-but-with-a-better-explanation-for-dummies-like-me/
 function search1(nums: number[], target: number): number {
 	let left = 0
 	let right = nums.length - 1
 	let midNum
-	// [3, 1, 2]
 	// [5 6 7 1 2]
 	while (left <= right) {
 		let mid = ~~((right - left) / 2) + left
@@ -31,7 +33,7 @@ function search1(nums: number[], target: number): number {
 function search(nums: number[], target: number): number {
 	let left = 0
 	let right = nums.length - 1
-  // two sorted sequence
+	// two sorted sequence
 	// 4 5 6 7 1 2 3
 	// case1:  left ele is less than or equal to mid, 
 	// and target is in nums[left] ~ nums[mid]
