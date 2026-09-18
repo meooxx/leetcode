@@ -1,5 +1,10 @@
 
-
+// each block includes 9 digits
+// block00  01      02
+//  .       .        .  
+//  .(10)   .(11)    .(12)  
+//  .       .        .  
+//  
 function isValidSudoku(board: string[][]): boolean {
 	const rowSeen = new Set<string>()
 	const colSeen = new Set<string>()
