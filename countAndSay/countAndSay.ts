@@ -10,7 +10,7 @@ function countAndSay(n: number): string {
 	if (n <= 1) {
 		return answer
 	}
-	for (let i = 1; i <= n; i++) {
+	for (let i = 1; i < n; i++) {
 		let temStr = answer[0]
 		let count = 1
 		for (let start = 1; start < answer.length; start++) {
