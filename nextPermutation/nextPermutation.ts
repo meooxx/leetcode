@@ -1,6 +1,10 @@
 /**
  Do not return anything, modify nums in-place instead.
  */
+// 4 3 2 8 7 4 2
+//       8 7 4 2, find the 2 which is right prior to 8
+// swap 2, 4 as 4 is first element that is great than 2
+// reverse 8 7 2 2
 function nextPermutation(nums: number[]): void {
 	// find the longest non-increase suffix
 	let left = nums.length - 1
