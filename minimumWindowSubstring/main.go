@@ -38,7 +38,7 @@ func minWindow1(s string, t string) string {
 			}
 			m[s[right]]--
 		}
-		// why it need not left < right
+		// why it doesnt need  left < right
 		// 1 bbabbb a,  left 从0-a的index一定会count再次>0
 		// 2 如果aaaa b, 不会进入这里
 		for count == 0 {
