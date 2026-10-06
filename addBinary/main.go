@@ -40,39 +40,29 @@ func addBinary2(a string, b string) string {
 	return string(r)
 }
 
-func addBinary(a string, b string) string {
+func addBinary(a, b string) string {
+	lenA := len(a)
+	lenB := len(b)
 
-	sizeA := len(a)
-	sizeB := len(b)
-	result := make([]byte, sizeA+sizeB)
-	index := sizeA + sizeB - 1
-	rest := 0
-	sizeA--
-	sizeB--
-	for sizeA >= 0 && sizeB >= 0 {
-		sum := int(a[sizeA]-'0'+b[sizeB]-'0') + rest
-		rest = sum / 2
-		result[index] = byte(sum%2 + '0')
-		index--
-		sizeA--
-		sizeB--
+	answer := make([]byte, lenA+lenB)
+	reminder := 0
+	for lenA >= 0 || lenB >= 0 {
+		sum := reminder
+		index := lenA + lenB - 1
+		if lenA >= 0 {
+			sum += int(a[lenA] - '0')
+			lenA--
+		}
+		if lenB >= 0 {
+			sum += int(b[lenB] - '0')
+			lenB--
+		}
+		answer[index] = byte(sum%2 + '0')
+		reminder = sum / 2
 	}
-
-	for sizeA >= 0 {
-		result[index] = a[sizeA]
-		index--
-		sizeA--
+	if reminder > 0 {
+		answer[lenA+lenB-1] = '1'
 	}
-
-	for sizeB >= 0 {
-		result[index] = b[sizeB]
-		index--
-		sizeB--
-	}
-
-	if rest == 1 {
-		return "1" + string(result)
-	}
-	return string(result)
+	return string(answer)
 
 }
