@@ -12,17 +12,16 @@ func removeDuplicates(nums []int) int {
 		return len(nums)
 	}
 	left := 2
-	count := 2
 	// 1 1 1 3
-	// 1 1 1 4 4 5
+	// 1 1 1 4 4 4
 	for i := 2; i < len(nums); i++ {
 		if nums[i] > nums[left-2] {
-			// nums[left] = nums[i]
+			nums[left] = nums[i]
 			left++
-			count++
+			
 		}
 	}
-	return count
+	return left
 }
 func removeDuplicates2(nums []int) int {
 	if len(nums) <= 2 {
