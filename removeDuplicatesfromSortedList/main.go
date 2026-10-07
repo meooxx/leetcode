@@ -26,15 +26,28 @@ type ListNode struct {
 }
 
 func deleteDuplicates(head *ListNode) *ListNode {
-
+	answer := &ListNode{}
+	pre := answer
+	pre.Next = head
 	curr := head
-	for curr != nil && curr.Next != nil {
-		if curr.Val == curr.Next.Val {
-			curr.Next = curr.Next.Next
-		} else {
-			curr = curr.Next
-		}
+	for curr != nil {
 
+    // find the last the duplicated node
+		// 1 2 2  2    3
+	  //        ^ CURR
+		for curr.Next  != nil && curr.Val == curr.Next.Val {
+				curr = curr.Next
+		}
+		
+		if pre.Next == curr {
+			// curr remain unchanged
+		// no duplicates for the curr node
+			pre = pre.Next
+		} else {
+			// assume that next node is potential eligible node 
+			pre.Next  = curr.Next
+		}
+		curr = curr.Next
 	}
-	return head
+	return answer.Next
 }
