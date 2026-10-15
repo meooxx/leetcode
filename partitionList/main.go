@@ -76,30 +76,30 @@ func partition1(head *ListNode, x int) *ListNode {
 }
 
 func partition(head *ListNode, x int) *ListNode {
-	result := &ListNode{
-		Next: head,
-	}
+	node1 := &ListNode{}
+	node2 := &ListNode{}
 
-    pre:= result
-    tail:= pre
-    cur := tail.Next
-    for cur != nil {
-        if cur.Val < x {
-            pre.Next = cur.Next
-            cur.Next = tail.Next
-            tail.Next = cur
-            
-            tail = cur
-            cur = pre.Next
-            
-        }else {
-            pre = cur
-            cur = cur.Next
-        
-        }
-        
-    }
-    
-    return result.Next
-    
+	tail1 := node1
+	tail2 := node2
+	for head != nil {
+		if head.Val < x {
+			tail1.Next = head
+			tail1 = tail1.Next
+
+		} else {
+			tail2.Next = head
+			tail2 = tail2.Next
+
+		}
+		head = head.Next
+
+	}
+	// case: 2->1
+	//  node1: 1
+	//  node2: 2->1
+	//  lead to a cycle
+	tail2.Next = nil
+	tail1.Next = node2.Next
+	return node1.Next
+
 }
