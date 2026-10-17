@@ -3,7 +3,7 @@
 package main 
 
 import "fmt"
-import "./revert"
+import "revert"
 
 
 func main () {

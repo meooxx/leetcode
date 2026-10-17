@@ -2,8 +2,12 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
 func main() {
 	l1 := &ListNode{
@@ -27,11 +31,6 @@ func main() {
 		fmt.Println(l)
 		l = l.Next
 	}
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }
 
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
@@ -105,5 +104,3 @@ func reverseBetween2(head *ListNode, left int, right int) *ListNode {
 	}
 	return result.Next
 }
-
-
