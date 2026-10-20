@@ -28,6 +28,6 @@ function isValidBST(root: TreeNode | null): boolean {
 
 
 	}
-
+	return true
 
 }
