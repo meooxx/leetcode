@@ -29,3 +29,35 @@ export class TreeNode {
 		this.right = (right === undefined ? null : right)
 	}
 }
+
+type LRUCache = {
+	get(key: number): number
+	put(key: number, val: number): void
+}
+type LRUConstructor = new (size: number) => LRUCache
+
+export function runLRU(LRU: LRUConstructor, action: string[], val: number[][]): Array<number | null> {
+	let lru: LRUCache | null = null
+	const result: Array<number | null> = []
+	action.forEach((a, index) => {
+		switch (a) {
+			case 'LRUCache':
+				lru = new LRU(val[index][0])
+				result.push(null)
+				break
+			case 'get': {
+				const v = lru!.get(val[index][0])
+				result.push(v)
+
+				break
+			}
+			case 'put': {
+				lru!.put(val[index][0], val[index][1])
+				result.push(null)
+				break
+			}
+		}
+	})
+	return result
+
+}
