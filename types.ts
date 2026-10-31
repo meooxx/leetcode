@@ -30,6 +30,33 @@ export class TreeNode {
 	}
 }
 
+export function createTreeNode(nodes: Array<number | null>): TreeNode | null {
+	if (nodes.length == 0) return null
+	const t = new TreeNode(nodes[0])
+	const heads = [t]
+	nodes = nodes.slice(1)
+	while (heads.length > 0) {
+		let size = heads.length
+		let i = 0
+		while (i++ < size) {
+			const root = heads.shift()!
+			const [left, right] = nodes
+			nodes = nodes.slice(2)
+			if (left == null && right == null) break
+			root.left = left ? new TreeNode(left) : null
+			root.right = right ? new TreeNode(right) : null
+			if (root.left) {
+				heads.push(root.left)
+				if (root.right) {
+					heads.push(root.right)
+				}
+			}
+		}
+	}
+	return t
+
+}
+
 type LRUCache = {
 	get(key: number): number
 	put(key: number, val: number): void
