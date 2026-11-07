@@ -5,6 +5,7 @@ function maxProfit(prices: number[]): number {
 	while (k <= 2) {
 		let profit = -prices[0]
 		for (let i = 1; i < prices.length; i++) {
+			// keypoint: dp[k-1][i] is accumulative profit from pre days
 			profit = Math.max(profit, -prices[i] + dp[k - 1][i - 1])
 			dp[k][i] = Math.max(dp[k][i - 1], prices[i] + profit)
 		}
