@@ -5,7 +5,7 @@
 //
 
 // 2 dfs: start from endWord
-// find  neigbour of anyword in pre layer to get a possible answer
+// check if it is a neigbour of anyword in pre layer to get a possible answer
 //   [cog]
 //   [dog, cog], [log, cog]
 //   [dot, dog, cog], [lot, log, cog]
