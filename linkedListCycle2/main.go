@@ -35,16 +35,21 @@ type ListNode struct {
 // a: stand for distance form head - loophead(1-3)
 // b: loophead to the meeting point of fast and slow(3-6)
 // c: remaining of length of loop if fast and slow meets(6-3)
-// 		a+2b+c == flow
-// 		a+b == slow
-// if fast meet slow and  fast twice speed slow
-// 	then a+2b+c = 2(a+b) ==  c = a
 //
-//  a     b
+//	a+2b+c == fast
+//	a+b == slow
+//
+// if fast meet slow and  fast twice speed slow
+//
+//		then a+2b+c = 2(a+b) ==  c = a
+//
+//	 a     b
+//
 // |   |   	 |
 // 1 2 3 4 5 6 7
-//     ^     ->
-//     |------|
+//
+//	^     ->
+//	|------|
 func detectCycle(head *ListNode) *ListNode {
 
 	slow := head
