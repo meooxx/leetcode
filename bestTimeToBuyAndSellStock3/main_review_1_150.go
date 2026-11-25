@@ -49,8 +49,9 @@ func maxProfit(prices []int) int {
  	//  3,  2,  5,   8,  1, 9,
 	// -3  -2  -2   -2  -1 -1    maxProfit  loop1
 	//  0   0   3   6   6   8     dp
+
 	// -3  -2  -2  -2   5   5    maxProfit  loop2
-	//  0   0   3   6   5  14
+	//  0   0   3   6   6  14
 	for k := 1; k <= 2; k++ {
 		maxProfit := -prices[0]
 		dp[k] = make([]int, len(prices))
